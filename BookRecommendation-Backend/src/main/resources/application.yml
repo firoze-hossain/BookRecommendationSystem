@@ -1,0 +1,31 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: firoze28
+    url: jdbc:mysql://localhost:3306/book_recom_db
+server:
+  port: 8085
+  servlet:
+    context-path: /api/v1/
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
+
+application:
+  security:
+    jwt:
+      secret-key: 0ed3e5666e34e213e129671e441fa9f4454ac92ef48740e5811390734f2f6f9a
+      expiration: 8640000
+
+springdoc:
+  default-produces-media-type: application/json
