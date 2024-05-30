@@ -45,6 +45,13 @@ public class BookService {
                 book.setTitle(item.getVolumeInfo().getTitle());
                 book.setAuthor(item.getVolumeInfo().getAuthors() != null ? String.join(", ", item.getVolumeInfo().getAuthors()) : "Unknown Author");
                 book.setThumbnail(item.getVolumeInfo().getImageLinks() != null ? item.getVolumeInfo().getImageLinks().getThumbnail() : "");
+
+                if (item.getVolumeInfo().getCategories() != null && !item.getVolumeInfo().getCategories().isEmpty()) {
+                    book.setGenre(item.getVolumeInfo().getCategories().get(0));
+                } else {
+                    book.setGenre("Unknown Genre");
+                }
+
                 books.add(book);
             }
             return books;

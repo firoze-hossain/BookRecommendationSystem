@@ -14,5 +14,6 @@ public class VolumeInfo {
     private String title;
     private List<String> authors;
     private ImageLinks imageLinks;
+    private List<String> categories;
 
 }

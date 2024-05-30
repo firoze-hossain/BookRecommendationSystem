@@ -19,6 +19,7 @@ public class Book {
     private String title;
     private String author;
     private String thumbnail;
+    private String genre;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

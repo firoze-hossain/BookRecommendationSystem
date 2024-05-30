@@ -42,6 +42,7 @@ public class BookController {
             if (existingBook.isPresent()) {
                 searchHistory.setBook(existingBook.get());
             } else {
+                book.setUser(user);
                 bookService.saveBook(book);
                 searchHistory.setBook(book);
             }
