@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -27,6 +28,12 @@ public class User implements UserDetails, Principal {
     private String lastName;
     private String email;
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<SearchHistory> searchHistory;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Book> books;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;

@@ -29,3 +29,9 @@ application:
 
 springdoc:
   default-produces-media-type: application/json
+
+google:
+  books:
+    api:
+      url: https://www.googleapis.com/books/v1/volumes?q=
+      key: AIzaSyADVOmEX_V5hmNcCR4ojx_ZsFC6cVsYmxU

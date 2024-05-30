@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -50,5 +51,9 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(s)
                 .build();
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByEmail(username);
     }
 }
