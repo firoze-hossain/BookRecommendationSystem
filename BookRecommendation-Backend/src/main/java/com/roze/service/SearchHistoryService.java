@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SearchHistoryService {
@@ -19,7 +20,6 @@ public class SearchHistoryService {
 
     public SearchHistory saveSearchHistory(SearchHistory searchHistory) {
         if (searchHistory.getBook().getId() == null) {
-            // If the book is not yet saved, save it first
             Book savedBook = bookService.saveBook(searchHistory.getBook());
             searchHistory.setBook(savedBook);
         }
@@ -29,6 +29,18 @@ public class SearchHistoryService {
         return searchHistoryRepository.save(searchHistory);
     }
 
+    public List<Book> getRecommendationsByUser(User user, String genre) {
+        List<SearchHistory> userSearchHistory = searchHistoryRepository.findByUserAndBookGenre(user, genre);
+        List<Book> topRatedBooks = bookService.getTopRatedBooksByGenre(genre);
+        List<Book> recommendedBooks = userSearchHistory.stream()
+                .map(SearchHistory::getBook)
+                .distinct()
+                .collect(Collectors.toList());
+
+        recommendedBooks.addAll(topRatedBooks);
+
+        return recommendedBooks.stream().distinct().collect(Collectors.toList());
+    }
 
     public List<SearchHistory> getSearchHistoryByUser(User user) {
         return searchHistoryRepository.findByUser(user);

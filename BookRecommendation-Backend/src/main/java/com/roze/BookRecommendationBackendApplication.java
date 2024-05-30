@@ -13,6 +13,7 @@ public class BookRecommendationBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(BookRecommendationBackendApplication.class, args);
     }
+
     @Bean
     public CommandLineRunner runner(RoleRepository roleRepository) {
         return args -> {

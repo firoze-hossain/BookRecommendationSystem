@@ -36,8 +36,6 @@ public class BookController {
         for (Book book : books) {
             SearchHistory searchHistory = new SearchHistory();
             searchHistory.setUser(user);
-
-            // Check if the book already exists in the database
             Optional<Book> existingBook = bookService.findByTitleAndAuthor(book.getTitle(), book.getAuthor());
             if (existingBook.isPresent()) {
                 searchHistory.setBook(existingBook.get());
@@ -52,8 +50,6 @@ public class BookController {
         return books;
     }
 
-
-
     @GetMapping("/history")
     public List<SearchHistory> getSearchHistory(Authentication authentication) {
         User user = userService.findByUsername(authentication.getName()).orElseThrow(() -> new RuntimeException("User not found"));
@@ -61,8 +57,11 @@ public class BookController {
     }
 
     @GetMapping("/recommendations")
-    public ResponseEntity<?> getRecommendations(@RequestParam String genre) {
-        List<Book> recommendedBooks = bookService.getTopRatedBooksByGenre(genre);
+    public ResponseEntity<?> getRecommendations(@RequestParam String genre, Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Book> recommendedBooks = searchHistoryService.getRecommendationsByUser(user, genre);
         return ResponseEntity.ok(recommendedBooks);
     }
 }

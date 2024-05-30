@@ -38,7 +38,7 @@ public class JwtService {
                 .claims(extraClaims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis()+jwtExpiration))
+                .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .claim("authorities", authorities)
                 .signWith(getSignInKey())
                 .compact();

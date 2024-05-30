@@ -1,4 +1,5 @@
 package com.roze.controller;
+
 import com.roze.dto.AuthenticationRequest;
 import com.roze.dto.AuthenticationResponse;
 import com.roze.dto.RegistrationRequest;
@@ -18,7 +19,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest request){
+    public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest request) {
         authenticationService.register(request);
         return ResponseEntity.accepted().build();
 
