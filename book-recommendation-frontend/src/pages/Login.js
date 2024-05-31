@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import '../Login.css'; // Optional for additional custom styles
+import { useNavigate, Link } from 'react-router-dom';
+import '../Login.css';
 
-function Login() {
+function Login({ onLogin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     const login = async () => {
-        const response = await axios.post('http://localhost:8085/api/v1/auth/authenticate', { email, password });
-        localStorage.setItem('token', response.data.token);
-        navigate('/');
+        try {
+            const response = await axios.post('http://localhost:8085/api/v1/auth/authenticate', { email, password });
+            localStorage.setItem('token', response.data.token);
+            onLogin();
+            navigate('/');
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
     };
 
     return (
@@ -41,6 +46,9 @@ function Login() {
                     />
                 </div>
                 <button className="btn btn-primary btn-block mt-3" onClick={login}>Login</button>
+                <div className="mt-3 text-center">
+                    <span>Don't have an account? </span><Link to="/register">Register</Link>
+                </div>
             </div>
         </div>
     );
