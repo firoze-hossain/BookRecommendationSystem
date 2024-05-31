@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import '../Navbar.css';
 function Navbar({ isLoggedIn, handleLogout }) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -33,7 +33,7 @@ function Navbar({ isLoggedIn, handleLogout }) {
                         </>
                     ) : (
                         <li className="nav-item">
-                            <button className="btn btn-link nav-link" onClick={handleLogout}>Logout</button>
+                            <button className="btn btn-outline-danger nav-link" style={{ cursor: 'pointer' }} onClick={handleLogout}>Logout</button>
                         </li>
                     )}
                 </ul>

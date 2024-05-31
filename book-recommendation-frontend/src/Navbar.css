@@ -1,0 +1,15 @@
+.navbar .btn-outline-danger {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
+}
+.navbar .navbar-brand {
+    margin-left: 20px;
+}
+
+.navbar .nav-link {
+    margin-right: 15px;
+}
