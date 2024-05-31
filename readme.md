@@ -25,10 +25,10 @@ The application is built using a client-server architecture. The frontend is dev
 │   │   │   ├── application.yml  # Application properties<br>
 │   │   │   ├── book_recom_db.sql       # SQL script for initial data import<br>
 │   └── test<br>
-│       └── java                # Test source files<br>
-│           └── com<br>
-│               └── roze<br>
-│                   └── BookRecommendationBackendApplicationTests<br>
+│   │    └── java                # Test source files<br>
+│   │    │ └── com<br>
+│   │    │            └── roze<br>
+│   │    │                └── BookRecommendationBackendApplicationTests<br>
 
 **frontend:**<br>
 ├── public # Public directory<br>
@@ -60,7 +60,7 @@ Clone the repository: git clone https://github.com/firoze-hossain/BookRecommenda
 **Install dependencies:**<br>
 Frontend: cd frontend && npm install<br>
 Backend: cd backend && mvn install<br>
-**Start the development server:******
+**Start the development server:******<br>
 **Frontend:** cd frontend && npm start<br>
 **Backend:** cd backend && mvn spring-boot:run<br>
 ## Deployment Guidelines<br>
