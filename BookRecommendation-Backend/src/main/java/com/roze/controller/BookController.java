@@ -7,6 +7,7 @@ import com.roze.service.AuthenticationService;
 import com.roze.service.BookService;
 import com.roze.service.SearchHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,26 +29,32 @@ public class BookController {
 
     @Autowired
     private AuthenticationService userService;
-
+    
     @GetMapping("/search")
-    public List<Book> searchBooks(@RequestParam String query, Authentication authentication) {
-        List<Book> books = bookService.searchBooks(query);
-        User user = userService.findByUsername(authentication.getName()).orElseThrow(() -> new RuntimeException("User not found"));
-        for (Book book : books) {
-            SearchHistory searchHistory = new SearchHistory();
-            searchHistory.setUser(user);
-            Optional<Book> existingBook = bookService.findByTitleAndAuthor(book.getTitle(), book.getAuthor());
-            if (existingBook.isPresent()) {
-                searchHistory.setBook(existingBook.get());
-            } else {
-                book.setUser(user);
-                bookService.saveBook(book);
-                searchHistory.setBook(book);
-            }
+    public ResponseEntity<List<Book>> searchBooks(@RequestParam String query, Authentication authentication) {
+        try {
+            List<Book> books = bookService.searchBooks(query);
+            User user = userService.findByUsername(authentication.getName())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
 
-            searchHistoryService.saveSearchHistory(searchHistory);
+            for (Book book : books) {
+                SearchHistory searchHistory = new SearchHistory();
+                searchHistory.setUser(user);
+                Optional<Book> existingBook = bookService.findByTitleAndAuthor(book.getTitle(), book.getAuthor());
+                if (existingBook.isPresent()) {
+                    searchHistory.setBook(existingBook.get());
+                } else {
+                    book.setUser(user);
+                    bookService.saveBook(book);
+                    searchHistory.setBook(book);
+                }
+
+                searchHistoryService.saveSearchHistory(searchHistory);
+            }
+            return ResponseEntity.ok(books);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return books;
     }
 
     @GetMapping("/history")
