@@ -29,7 +29,7 @@ public class BookController {
 
     @Autowired
     private AuthenticationService userService;
-    
+
     @GetMapping("/search")
     public ResponseEntity<List<Book>> searchBooks(@RequestParam String query, Authentication authentication) {
         try {
