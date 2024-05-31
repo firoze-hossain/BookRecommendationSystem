@@ -14,3 +14,8 @@
 .navbar .nav-link {
     margin-right: 15px;
 }
+
+.nav-link.active {
+    color: #fff;
+    background-color: lightgreen;
+}

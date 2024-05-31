@@ -1,23 +1,23 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../Navbar.css';
 
-function Navbar({isLoggedIn, handleLogout}) {
+function Navbar({ isLoggedIn, handleLogout }) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link className="navbar-brand" to="/">Book App</Link>
+            <NavLink className="navbar-brand" to="/">Book App</NavLink>
             <div className="collapse navbar-collapse">
                 <ul className="navbar-nav mr-auto">
                     {isLoggedIn && (
                         <>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/">Home</Link>
+                                <NavLink className="nav-link" to="/" activeClassName="active">Home</NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/profile">Profile</Link>
+                                <NavLink className="nav-link" to="/profile" activeClassName="active">Profile</NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/recommendations">Recommendations</Link>
+                                <NavLink className="nav-link" to="/recommendations" activeClassName="active">Recommendations</NavLink>
                             </li>
                         </>
                     )}
@@ -26,15 +26,15 @@ function Navbar({isLoggedIn, handleLogout}) {
                     {!isLoggedIn ? (
                         <>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/login">Login</Link>
+                                <NavLink className="nav-link" to="/login">Login</NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/register">Register</Link>
+                                <NavLink className="nav-link" to="/register">Register</NavLink>
                             </li>
                         </>
                     ) : (
                         <li className="nav-item">
-                            <button className="btn btn-outline-danger nav-link" style={{cursor: 'pointer'}}
+                            <button className="btn btn-outline-danger nav-link" style={{ cursor: 'pointer' }}
                                     onClick={handleLogout}>Logout
                             </button>
                         </li>
