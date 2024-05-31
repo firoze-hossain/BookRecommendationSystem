@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Pagination, Button } from 'react-bootstrap';
 
 function Profile() {
     const [searchHistory, setSearchHistory] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [booksPerPage] = useState(5); // Number of books per page
 
     useEffect(() => {
         const fetchSearchHistory = async () => {
@@ -12,17 +13,25 @@ function Profile() {
             const config = {
                 headers: { Authorization: `Bearer ${token}` }
             };
-            const response = await axios.get(`http://localhost:8085/api/v1/books/history`,config);
+            const response = await axios.get(`http://localhost:8085/api/v1/books/history`, config);
             setSearchHistory(response.data);
         };
         fetchSearchHistory();
     }, []);
 
+    const indexOfLastBook = currentPage * booksPerPage;
+    const indexOfFirstBook = indexOfLastBook - booksPerPage;
+    const currentBooks = searchHistory.slice(indexOfFirstBook, indexOfLastBook);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    const totalPages = Math.ceil(searchHistory.length / booksPerPage);
+
     return (
         <div className="container mt-5">
             <h1>Search History</h1>
             <div className="row">
-                {searchHistory.map((history) => (
+                {currentBooks.map((history) => (
                     <div key={history.id} className="col-lg-4 mb-4">
                         <Card>
                             <Card.Img variant="top" src={history.book.thumbnail} alt={history.book.title} />
@@ -35,6 +44,14 @@ function Profile() {
                         </Card>
                     </div>
                 ))}
+            </div>
+            <div className="d-flex justify-content-center mt-3">
+                <Pagination>
+                    <Pagination.Item disabled={currentPage === 1} onClick={() => paginate(1)}>First</Pagination.Item>
+                    <Pagination.Item disabled={currentPage === 1} onClick={() => paginate(currentPage - 1)}>Previous</Pagination.Item>
+                    <Pagination.Item disabled={currentPage === totalPages} onClick={() => paginate(currentPage + 1)}>Next</Pagination.Item>
+                    <Pagination.Item disabled={currentPage === totalPages} onClick={() => paginate(totalPages)}>Last</Pagination.Item>
+                </Pagination>
             </div>
         </div>
     );
