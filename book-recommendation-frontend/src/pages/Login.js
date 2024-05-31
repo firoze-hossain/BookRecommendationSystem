@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import '../Login.css';
 
-function Login({ onLogin }) {
+function Login({onLogin}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     const login = async () => {
         try {
-            const response = await axios.post('http://localhost:8085/api/v1/auth/authenticate', { email, password });
+            const response = await axios.post('http://localhost:8085/api/v1/auth/authenticate', {email, password});
             localStorage.setItem('token', response.data.token);
             onLogin();
             navigate('/');
@@ -20,8 +20,8 @@ function Login({ onLogin }) {
     };
 
     return (
-        <div className="container d-flex align-items-center justify-content-center" style={{ height: '100vh' }}>
-            <div className="card p-4" style={{ width: '300px' }}>
+        <div className="container d-flex align-items-center justify-content-center" style={{height: '100vh'}}>
+            <div className="card p-4" style={{width: '300px'}}>
                 <h1 className="text-center">Login</h1>
                 <div className="form-group">
                     <label htmlFor="email">Email</label>

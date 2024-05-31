@@ -1,6 +1,6 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -30,27 +30,27 @@ function App() {
     return (
         <Router>
             <div>
-                <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+                <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
                 <Routes>
                     <Route
                         path="/"
-                        element={isLoggedIn ? <Home /> : <Navigate to="/login" />}
+                        element={isLoggedIn ? <Home/> : <Navigate to="/login"/>}
                     />
                     <Route
                         path="/login"
-                        element={<Login onLogin={handleLogin} />}
+                        element={<Login onLogin={handleLogin}/>}
                     />
                     <Route
                         path="/register"
-                        element={<Register />}
+                        element={<Register/>}
                     />
                     <Route
                         path="/profile"
-                        element={isLoggedIn ? <Profile /> : <Navigate to="/login" />}
+                        element={isLoggedIn ? <Profile/> : <Navigate to="/login"/>}
                     />
                     <Route
                         path="/recommendations"
-                        element={isLoggedIn ? <Recommendations /> : <Navigate to="/login" />}
+                        element={isLoggedIn ? <Recommendations/> : <Navigate to="/login"/>}
                     />
                 </Routes>
             </div>

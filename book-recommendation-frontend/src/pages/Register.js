@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
-import { useNavigate,Link } from 'react-router-dom';
-import '../Register.css'; // Optional for additional custom styles
+import {useNavigate, Link} from 'react-router-dom';
+import '../Register.css';
 
 function Register() {
     const [firstName, setFirstName] = useState('');
@@ -11,13 +11,13 @@ function Register() {
     const navigate = useNavigate();
 
     const register = async () => {
-        await axios.post('http://localhost:8085/api/v1/auth/register', { firstName, lastName, email, password });
+        await axios.post('http://localhost:8085/api/v1/auth/register', {firstName, lastName, email, password});
         navigate('/login');
     };
 
     return (
-        <div className="container d-flex align-items-center justify-content-center" style={{ height: '100vh' }}>
-            <div className="card p-4" style={{ width: '300px' }}>
+        <div className="container d-flex align-items-center justify-content-center" style={{height: '100vh'}}>
+            <div className="card p-4" style={{width: '300px'}}>
                 <h1 className="text-center">Register</h1>
                 <div className="form-group">
                     <label htmlFor="firstName">First Name</label>
